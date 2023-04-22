@@ -1,8 +1,9 @@
 import React from 'react';
 import {StackScreenProps} from '@react-navigation/stack';
-import { View, Image, Dimensions, StyleSheet, ScrollView, Text } from 'react-native';
+import { View, Image, Dimensions, StyleSheet, ScrollView, Text, ActivityIndicator } from 'react-native';
 import { RootStackParams } from '../navigation/StackNavigation';
-import Icon from 'react-native-vector-icons/Ionicons';
+import { useMovieDetail } from '../hooks/useMovieDetail';
+import { MovieDetails } from '../components/MovieDetails';
 
 interface Props extends StackScreenProps<RootStackParams, 'MovieDetailScreen'>{}
 const {height} = Dimensions.get('window');
@@ -11,6 +12,8 @@ const {height} = Dimensions.get('window');
 export const MovieDetailScreen = ({route}: Props) => {
   const movie = route.params;
   const uri = `https://image.tmdb.org/t/p/w500${movie.poster_path}`;
+  const {isLoading, movieFullDetail, cast} = useMovieDetail(movie.id);
+  console.log(cast);
   return (
     <ScrollView>
       <View style={styles.imageContainer}>
@@ -20,13 +23,13 @@ export const MovieDetailScreen = ({route}: Props) => {
         <Text style={styles.movieSubtitle}>{movie.original_title}</Text>
         <Text style={styles.movieTitle}>{movie.title}</Text>
       </View>
-      <View style={styles.marginContainer}>
-        <Icon
-          name="star-outline"
-          size={20}
-          color="grey"
-        />
-      </View>
+
+      {
+        isLoading
+        // eslint-disable-next-line react-native/no-inline-styles
+        ? <ActivityIndicator size={35} color="grey" style={{marginTop: 30}}/>
+        : <MovieDetails movieFullDetail={movieFullDetail!} castList={cast}/>
+      }
     </ScrollView>
   );
 };
