@@ -81,5 +81,6 @@ const styles = StyleSheet.create({
   backArow: {
     position: 'absolute',
     left: 5,
+    marginTop: 30,
   },
 });

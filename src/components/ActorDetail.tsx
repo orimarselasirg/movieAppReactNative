@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { Cast } from '../interfaces/movieDetailInterface';
-import { Text, Image, View, StyleSheet } from 'react-native';
+import { Text, Image, View, StyleSheet, Platform } from 'react-native';
 
 interface Props {
   actor: Cast
@@ -35,7 +35,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     borderRadius: 10,
     marginRight: 12,
-    backgroundColor: 'white',
+    backgroundColor: Platform.OS !== 'ios' ? 'white' : '',
     overflow: 'hidden',
     shadowColor: '#000',
     shadowOffset: {
@@ -44,7 +44,7 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 0.51,
     shadowRadius: 15.16,
-    elevation: 9,
+    elevation: 5,
   },
   actorInfomation: {
     flexDirection: 'column',

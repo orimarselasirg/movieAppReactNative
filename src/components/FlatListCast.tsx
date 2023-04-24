@@ -20,6 +20,7 @@ export const FlatListCast = ({title, castList}: Props) => {
         keyExtractor={(item) => item.id.toString()}
         horizontal={true}
         showsHorizontalScrollIndicator={false}
+        style={{marginTop: 10, height: 70}}
       />
   </View>
   );
