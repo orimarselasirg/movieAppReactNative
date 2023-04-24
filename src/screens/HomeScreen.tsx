@@ -6,6 +6,7 @@ import { useMovieDb } from '../hooks/useMovieDb';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { MoviePoster } from '../components/moviePoster';
 import { FlatListMoviesSection } from '../components/FlatListMoviesSection';
+import { GradientGenerator } from '../components/GradientGenerator';
 export const HomeScreen = () => {
   // const navigation = useNavigation();
   const { top } = useSafeAreaInsets();
@@ -14,9 +15,13 @@ export const HomeScreen = () => {
   const {nowPlaying, popular, topRated, upcoming, Loading, isLoading} = useMovieDb();
   // console.log(nowPlaying[1].title);
 
+  const getColor = (index: number) => {
+    console.log(nowPlaying[index].title);
+  };
+
 
   return (
-    <>
+    <GradientGenerator>
       {isLoading
       ? <Loading/>
       : <ScrollView>
@@ -28,6 +33,7 @@ export const HomeScreen = () => {
               sliderWidth={windowWith}
               itemWidth={300}
               inactiveSlideOpacity={0.85}
+              onSnapToItem={index => getColor(index)}
             />
           </View>
             <FlatListMoviesSection
@@ -47,6 +53,6 @@ export const HomeScreen = () => {
     }
 
 
-    </>
+    </GradientGenerator>
   );
 };
